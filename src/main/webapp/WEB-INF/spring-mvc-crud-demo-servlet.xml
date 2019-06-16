@@ -15,6 +15,9 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
+	<tx:annotation-driven />
+
 	<!-- Add support for component scanning controllers -->
 	<context:component-scan
 		base-package="controller" />
@@ -31,7 +34,7 @@
 
 	<!-- Step 1: Define Database DataSource / connection pool -->
 
-	
+
 
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -44,8 +47,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
-		<property name="packagesToScan"
-			value="com.luv2code.springdemo.entity" />
+		<property name="packagesToScan" value="entity" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -53,6 +55,16 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- hibernateTemplate -->
+	<bean name="hibernateTemplate"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+
+	</bean>
+
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
 
 	<!-- Step 3: Setup Hibernate transaction manager -->
 	<bean id="myTransactionManager"
