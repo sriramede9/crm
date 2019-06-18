@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.CustomerDao;
 import dao.CustomerDaoImpl;
@@ -31,4 +34,33 @@ public class CustomerController {
 
 		return "list-customers";
 	}
+
+	@RequestMapping("add")
+	public String showForm(Model model) {
+
+		model.addAttribute("customer", new Customer());
+		return "addnewcustomer";
+	}
+
+	@RequestMapping("formresponse")
+	public String formresponse(Model model, @ModelAttribute("customer") Customer cust) {
+
+		System.out.println(cust);
+
+		// boolean containsAttribute = model.containsAttribute("customer"); boolean
+		// check
+
+		// System.out.println(containsAttribute);
+		// to add our customer
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+		// System.out.println("context created happily");
+
+		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+
+		cdao.addCustomer(cust);
+
+		return "redirect:/customer/list";
+
+	}
+
 }

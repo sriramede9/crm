@@ -23,4 +23,23 @@ public class CustomerDaoImpl implements CustomerDao {
 		return loadAll;
 	}
 
+	@Override
+	public int addCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+
+		// inital test
+
+		System.out.println("here is our customer" + customer);
+
+		return 0;
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+
+		System.out.println("customer is updated " + customer);
+
+	}
+
 }

@@ -41,6 +41,12 @@ h1 {
 	color: white;
 	background-color: green;
 }
+
+#formbutton {
+	padding: 5px;
+	color: white;
+	background-color: green;
+}
 </style>
 
 <meta charset="ISO-8859-1">
@@ -50,8 +56,10 @@ h1 {
 	<h1>CRM - Customer Relationship Manager</h1>
 
 
-
-
+	<button id="formbutton" value="click"
+		onclick="window.location.href='add'; return false;">Click to
+		add New Customer</button>
+	<br>
 
 	<table id="customers">
 		<tr>
@@ -67,6 +75,7 @@ h1 {
 				<td>${item.first_name}</td>
 				<td>${item.last_name}</td>
 				<td>${item.email}</td>
+				
 			</tr>
 		</c:forEach>
 	</table>
