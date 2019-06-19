@@ -63,4 +63,23 @@ public class CustomerController {
 
 	}
 
+	@RequestMapping("updateform")
+	public String updateForm(@RequestParam("customerid") Integer theid, Model model) {
+
+		System.out.println("the id is" + theid);
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+		// System.out.println("context created happily");
+
+		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+
+		Customer customerbyId = cdao.getCustomerbyId(theid);
+
+		model.addAttribute("customer", customerbyId);
+
+		System.out.println(customerbyId);
+
+		return "addnewcustomer";
+	}
+
 }

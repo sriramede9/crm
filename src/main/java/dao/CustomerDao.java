@@ -10,5 +10,8 @@ public interface CustomerDao {
 
 	int addCustomer(Customer customer);
 
+	Customer getCustomerbyId(int theid);
+
 	void updateCustomer(Customer customer);
+
 }

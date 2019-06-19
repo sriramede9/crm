@@ -67,15 +67,25 @@ h1 {
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Email Id</th>
+			<th>Action</th>
 		</tr>
 
+
+
 		<c:forEach items="${list}" var="item">
+
+			<c:url var="updateLink" value="/customer/updateform">
+
+				<c:param name="customerid" value="${item.id}"></c:param>
+			</c:url>
+
 			<tr>
 				<td>${item.id}</td>
 				<td>${item.first_name}</td>
 				<td>${item.last_name}</td>
 				<td>${item.email}</td>
-				
+				<td><a href="${updateLink}">Update</a></td>
+
 			</tr>
 		</c:forEach>
 	</table>

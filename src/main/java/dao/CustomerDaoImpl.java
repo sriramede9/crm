@@ -24,6 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
+	@Transactional
 	public int addCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 
@@ -35,11 +36,22 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
+	@Transactional
 	public void updateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 
 		System.out.println("customer is updated " + customer);
 
+	}
+
+	@Override
+	@Transactional
+	public Customer getCustomerbyId(int theid) {
+		// TODO Auto-generated method stub
+
+		Customer thecustomer = hibernateTemplate.get(Customer.class, theid);
+
+		return thecustomer;
 	}
 
 }
