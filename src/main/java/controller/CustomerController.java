@@ -66,10 +66,7 @@ public class CustomerController {
 	@RequestMapping("updateform")
 	public String updateForm(@RequestParam("customerid") Integer theid, Model model) {
 
-		System.out.println("the id is" + theid);
-
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
-		// System.out.println("context created happily");
 
 		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
 
@@ -80,6 +77,20 @@ public class CustomerController {
 		System.out.println(customerbyId);
 
 		return "addnewcustomer";
+	}
+
+	@RequestMapping("deleteform")
+	public String deleteCustomer(@RequestParam("customerid") Integer theid, Model model) {
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+
+		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+
+		Customer customerbyId = cdao.getCustomerbyId(theid);
+
+		cdao.deleteCustomer(customerbyId);
+
+		return "redirect:/customer/list";
 	}
 
 }

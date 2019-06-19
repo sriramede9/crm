@@ -43,11 +43,31 @@ h1 {
 }
 
 #formbutton {
-	padding: 5px;
 	color: white;
-	background-color: green;
+	background-color: #008CBA;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
 }
 </style>
+
+<script type="text/javascript">
+	function fun() {
+		var txt = "hello bmro";
+
+		if (!confirm("are you sure")) {
+
+			return false;
+
+		}
+
+	}
+</script>
 
 <meta charset="ISO-8859-1">
 <title>List customers</title>
@@ -60,10 +80,11 @@ h1 {
 		onclick="window.location.href='add'; return false;">Click to
 		add New Customer</button>
 	<br>
+	<br>
 
 	<table id="customers">
 		<tr>
-			<th>Id</th>
+			
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Email Id</th>
@@ -79,12 +100,19 @@ h1 {
 				<c:param name="customerid" value="${item.id}"></c:param>
 			</c:url>
 
+			<c:url var="deleteLink" value="/customer/deleteform">
+
+				<c:param name="customerid" value="${item.id }"></c:param>
+
+			</c:url>
+
 			<tr>
-				<td>${item.id}</td>
+				
 				<td>${item.first_name}</td>
 				<td>${item.last_name}</td>
 				<td>${item.email}</td>
-				<td><a href="${updateLink}">Update</a></td>
+				<td><a href="${updateLink}">Update</a>|<a name="del"
+					onclick="fun()" href="${deleteLink }">delete</a></td>
 
 			</tr>
 		</c:forEach>

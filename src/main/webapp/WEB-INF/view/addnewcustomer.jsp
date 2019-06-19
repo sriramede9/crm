@@ -53,6 +53,7 @@ h1 {
 
 	<form:form modelAttribute="customer" action="formresponse"
 		method="post">
+		<form:hidden path="id" />
 		<table id="customers">
 			<tr>
 				<td>First Name:</td>

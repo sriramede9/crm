@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,15 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	@Transactional
-	public int addCustomer(Customer customer) {
+	public void addCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 
 		// inital test
 
 		System.out.println("here is our customer" + customer);
 
-		return 0;
+		hibernateTemplate.saveOrUpdate(customer);
+
 	}
 
 	@Override
@@ -40,6 +42,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void updateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 
+		hibernateTemplate.update(customer);
 		System.out.println("customer is updated " + customer);
 
 	}
@@ -52,6 +55,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		Customer thecustomer = hibernateTemplate.get(Customer.class, theid);
 
 		return thecustomer;
+	}
+
+	@Override
+	@Transactional
+	public void deleteCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		hibernateTemplate.delete(customer);
+
+		System.out.println(customer + "is deleted");
 	}
 
 }
