@@ -22,10 +22,11 @@
 	<tx:annotation-driven />
 
 	<context:component-scan
-		base-package="entity,dao"></context:component-scan>
+		base-package="entity,dao,aspect"></context:component-scan>
 
+	<!-- add AspectJ autoproxy support for aop -->
 
-
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -65,15 +66,16 @@
 		<property name="sessionFactory" ref="sessionfactory"></property>
 
 	</bean>
-	
-	<tx:annotation-driven/>
-	
-	<tx:annotation-driven proxy-target-class="true"
-        transaction-manager="transactionManager" />
-        
-<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"> 
-<property name="sessionFactory" ref="sessionfactory" /> 
-</bean> 
 
-	
+	<tx:annotation-driven />
+
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionfactory" />
+	</bean>
+
+
 </beans>
