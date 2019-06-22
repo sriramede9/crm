@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -42,7 +43,27 @@ public class CrmLogginAspect {
 		Object[] args = jp.getArgs();
 
 		mylogger.info("method Signature from @Before is " + signature.toShortString());
+
+		for (Object o : args) {
+			mylogger.info("these are the method arguments that are passed into so and so method @before it executes"
+					+ " ==>" + o);
+		}
+
 	}
 
 	// setup @ AfterReturning advice
+
+	@AfterReturning(pointcut = "Appflow()", returning = "result")
+	public void afterReturning(JoinPoint jp, Object result) {
+
+		Signature signature = jp.getSignature();
+
+		mylogger.info("method Signature from @AfterReturning is " + signature.toShortString());
+
+		// data returned
+
+		mylogger.info("the returned items are ====> \t" + result);
+
+	}
+
 }
