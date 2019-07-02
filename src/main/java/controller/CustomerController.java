@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +19,18 @@ import entity.Customer;
 @RequestMapping("/customer")
 public class CustomerController {
 
+	@Autowired
+	CustomerDaoImpl customerdaoImpl;
+
 	@RequestMapping("/list")
 	public String listCustomers(Model model) {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+		//ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
 		System.out.println("context created happily");
 
-		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+	//	CustomerDao cdao = customerdaoImpl.getBean("cimp", CustomerDaoImpl.class);
 
-		List<Customer> allitems = cdao.getAll();
+		List<Customer> allitems = customerdaoImpl.getAll();
 
 		model.addAttribute("list", allitems);
 
@@ -39,6 +43,7 @@ public class CustomerController {
 	public String showForm(Model model) {
 
 		model.addAttribute("customer", new Customer());
+		
 		return "addnewcustomer";
 	}
 
@@ -52,12 +57,12 @@ public class CustomerController {
 
 		// System.out.println(containsAttribute);
 		// to add our customer
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+		//ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
 		// System.out.println("context created happily");
 
-		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+		//CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
 
-		cdao.addCustomer(cust);
+		customerdaoImpl.addCustomer(cust);
 
 		return "redirect:/customer/list";
 
@@ -66,11 +71,11 @@ public class CustomerController {
 	@RequestMapping("updateform")
 	public String updateForm(@RequestParam("customerid") Integer theid, Model model) {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
-
-		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
-
-		Customer customerbyId = cdao.getCustomerbyId(theid);
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+//
+//		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+//
+		Customer customerbyId = customerdaoImpl.getCustomerbyId(theid);
 
 		model.addAttribute("customer", customerbyId);
 
@@ -82,13 +87,13 @@ public class CustomerController {
 	@RequestMapping("deleteform")
 	public String deleteCustomer(@RequestParam("customerid") Integer theid, Model model) {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("controller/config.xml");
+//
+//		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
+//
+		Customer customerbyId = customerdaoImpl.getCustomerbyId(theid);
 
-		CustomerDao cdao = context.getBean("cimp", CustomerDaoImpl.class);
-
-		Customer customerbyId = cdao.getCustomerbyId(theid);
-
-		cdao.deleteCustomer(customerbyId);
+		customerdaoImpl.deleteCustomer(customerbyId);
 
 		return "redirect:/customer/list";
 	}
